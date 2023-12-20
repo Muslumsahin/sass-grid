@@ -1,0 +1,80 @@
+$grid-width: 114rem;
+$gutter-vertical: 8rem;
+$gutter-horizontal: 6rem;
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  margin-top: $gutter-horizontal;
+  font-family: "Montserrat", sans-serif;
+}
+
+.row {
+  max-width: $grid-width;
+
+  color: white;
+  margin: 0 auto;
+  font-size: 14px;
+  font-weight: 600;
+
+  &:not(:last-child) {
+    // son çocuk element olmayan haricinde uygula.
+    margin-bottom: $gutter-vertical;
+  }
+
+  @include clearfix();
+
+  [class^="col-"] {
+    background-color: #be3144;
+    height: $gutter-horizontal;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+    }
+  }
+
+  .col-1-of-2 {
+    width: calc(
+      (100% - #{$gutter-horizontal}) / 2
+    ); // calc() fun.da sass değikeni kullanmak için #{} içine yazıyoruz.
+  }
+
+  .col-1-of-3 {
+    width: calc(
+      (100% - 2 * #{$gutter-horizontal}) / 3
+    ); // 2 ile çarpılma sebebi 2 gutterımız(aralarındaki boşluk) olacağı için
+  }
+  .col-2-of-3 {
+    width: calc(
+      2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal}
+    ); // Yukarıda yaptığımız hesaplamaya gutter-horizontal'ı ekleyip 2 ile çarpıyoruz.
+  }
+  .col-1-of-4 {
+    width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+  } // 100% genişliğimizden 3 gutter-horizontalımızı çıkardık ve 4'de böldük
+
+  .col-2-of-4 {
+    width: calc(
+      2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal}
+    ); // Yukarıda yaptığımız hesaplamanın aynısını yaptık, fakat burada .col-1-of-4 hesaplamamızdaki çıkan sonuca gutter-horizontalımızı da ekledik ve 2 ile çarptık
+  }
+  .col-3-of-4 {
+    width: calc(
+      3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal}
+    );// Yine aynı şekilde 100% genişliğimizi 4 de bölüp 3 ile çarptık daha sonra 2 gutter-horizontal ekledik.
+  }
+}
